@@ -1,0 +1,241 @@
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Design tokens ── */
+:root {
+  --panel-w: 360px;
+  --accent:  #38bdf8;       /* sky-400 */
+  --accent2: #818cf8;       /* indigo-400 */
+  --danger:  #f87171;       /* red-400 */
+  --warn:    #fbbf24;       /* amber-400 */
+  --bg:      #0b0f1a;
+  --surface: rgba(11, 18, 36, 0.72);
+  --border:  rgba(56, 189, 248, 0.12);
+  --text:    #e2e8f0;
+  --muted:   #64748b;
+  --font:    'Inter', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Full-screen map ── */
+#map {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  /* OSM tiles rendered in dark mode via CSS filter */
+  filter: invert(1) hue-rotate(180deg) brightness(0.85) saturate(1.4) contrast(0.9);
+}
+
+#map.no-filter { filter: none; }
+
+/* Keep map controls readable after the filter is applied */
+.leaflet-control,
+.leaflet-popup {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* ── Side panel ── */
+#panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: var(--panel-w);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+
+  /* Glassmorphism */
+  background: var(--surface);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border-right: 1px solid var(--border);
+  box-shadow: 4px 0 32px rgba(0,0,0,.6);
+}
+
+/* ── Panel header ── */
+.panel-header {
+  padding: 24px 22px 16px;
+}
+
+.panel-logo {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.logo-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+.logo-dot:nth-child(1) { background: var(--danger); }
+.logo-dot:nth-child(2) { background: var(--warn); }
+.logo-dot:nth-child(3) { background: #34d399; }
+
+.panel-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -.3px;
+  color: #f1f5f9;
+}
+
+.panel-title em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.panel-subtitle {
+  margin-top: 6px;
+  font-size: .7rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── Divider ── */
+.panel-divider {
+  height: 1px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+/* ── Sections ── */
+.panel-section {
+  padding: 16px 22px;
+}
+
+.panel-flex {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-label {
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+/* ── Basemap buttons ── */
+.basemap-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.bm-btn {
+  flex: 1;
+  padding: 6px 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: rgba(255,255,255,.04);
+  color: var(--muted);
+  font-size: .75rem;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all .18s;
+}
+
+.bm-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.bm-btn.active {
+  background: rgba(56, 189, 248, .15);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Stat cards ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.stat-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: .68rem;
+  color: var(--muted);
+}
+
+/* ── Chart placeholder ── */
+.chart-placeholder {
+  flex: 1;
+  min-height: 160px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: .75rem;
+}
+
+/* ── Analysis placeholder ── */
+.analysis-placeholder {
+  min-height: 80px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: .75rem;
+}
+
+/* ── Footer ── */
+.panel-footer {
+  padding: 12px 22px;
+  font-size: .65rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+/* ── Leaflet attribution sits above panel ── */
+.leaflet-bottom.leaflet-left {
+  left: calc(var(--panel-w) + 8px);
+}
+
+/* ── Scrollbar ── */
+#panel::-webkit-scrollbar { width: 4px; }
+#panel::-webkit-scrollbar-track { background: transparent; }
+#panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>黄土高原小流域防汛与滑坡灾害时空监测系统</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Leaflet CSS -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+  </head>
+  <body>
+    <!-- Full-screen map -->
+    <div id="map"></div>
+
+    <!-- Left control panel -->
+    <aside id="panel">
+      <!-- Header -->
+      <header class="panel-header">
+        <div class="panel-logo">
+          <span class="logo-dot"></span>
+          <span class="logo-dot"></span>
+          <span class="logo-dot"></span>
+        </div>
+        <h1 class="panel-title">黄土高原<br /><em>灾害时空监测</em></h1>
+        <p class="panel-subtitle">Loess Plateau · Disaster GIS</p>
+      </header>
+
+      <div class="panel-divider"></div>
+
+      <!-- Basemap switcher -->
+      <section class="panel-section">
+        <h2 class="section-label">底图切换</h2>
+        <div class="basemap-btns" id="basemapBtns">
+          <button class="bm-btn active" data-bm="osm-dark">暗色</button>
+          <button class="bm-btn" data-bm="osm-topo">地形</button>
+          <button class="bm-btn" data-bm="osm-light">亮色</button>
+        </div>
+      </section>
+
+      <div class="panel-divider"></div>
+
+      <!-- Status cards -->
+      <section class="panel-section">
+        <h2 class="section-label">实时状态</h2>
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="stat-value" id="statFlood">—</span>
+            <span class="stat-label">防汛预警点</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="statLandslide">—</span>
+            <span class="stat-label">滑坡隐患点</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="statWatershed">—</span>
+            <span class="stat-label">监测小流域</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-value" id="statStation">—</span>
+            <span class="stat-label">水文站</span>
+          </div>
+        </div>
+      </section>
+
+      <div class="panel-divider"></div>
+
+      <!-- Chart placeholder -->
+      <section class="panel-section panel-flex">
+        <h2 class="section-label">水文趋势</h2>
+        <div class="chart-placeholder" id="rainfall-chart"></div>
+      </section>
+
+      <div class="panel-divider"></div>
+
+      <!-- Turf analysis placeholder -->
+      <section class="panel-section">
+        <h2 class="section-label">空间分析 · Turf.js</h2>
+        <button class="bm-btn" id="analysis-btn" style="width: 100%; margin-bottom: 12px;">计算最近隐患点</button>
+        <div class="analysis-placeholder" id="analysis-result">
+          <span>点击按钮开始分析</span>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="panel-footer">
+        <span>© 2025 · 钱安良 / UCAS GIS Lab</span>
+      </footer>
+    </aside>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
